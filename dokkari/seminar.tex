@@ -1,0 +1,102 @@
+% For easier proof-reading, use the single-column, double-spaced layout:
+\documentclass{netsec2012}
+
+% Final Paper use double-column, normal line spacing. Comment the
+% above line and uncomment the following line when you are writing
+% Full paper and Final paper!  
+%\documentclass[cameraready]{netsec2012}
+
+\begin{document}
+
+%=========================================================
+
+\title{Single character OCR using Support Vector Machine}
+
+\author{Olli Jarva \& Jarno Rantanen \\
+        Aalto University School of Science \\
+	\texttt{olli@jarva.fi} \texttt{\&} \texttt{jarno.rantanen@futurice.com}}
+\maketitle
+
+%==========================================================
+
+\begin{abstract}
+  This paper describes optical character recognition for bitmap characters
+  using Support Vector Machine with RBF kernel, including parameter search
+  and bitmap normalization. 
+  Error rate with k-fold cross validation (k=20, n=42152) was 11\%.
+
+\vspace{3mm}
+\noindent KEYWORDS: SVM, Support Vector Machine, RBF, OCR, Character Recognition
+
+\end{abstract}
+
+%============================================================
+
+\section{Dataset description}
+
+Training dataset:
+
+\begin{itemize}
+\item n=42152
+\item 16 x 8 black and white bitmaps
+\item Lowercase characters, n=26 (a-z)
+\end{itemize}
+
+Testing dataset:
+
+\begin{itemize}
+\item n=10000
+\item Same format
+\end{itemize}
+
+\section{Character preprocessing}
+
+\begin{itemize}
+\item Minimize noise by moving characters to bottom left corner. 0.5\% improvement
+\end{itemize}
+
+\section{What is SVM?}
+
+\begin{itemize}
+\item http://www.csie.ntu.edu.tw/~cjlin/papers/guide/guide.pdf
+\item http://www.ivanciuc.org/Files/Reprint/Ivanciuc\_SVM\_CCR\_2007\_23\_291.pdf
+\item RBF kernel
+\end{itemize}
+
+
+\section{RBF kernel parameter search}
+
+$\gamma$ and $C$
+
+\begin{itemize}
+\item Initial search space 2**x for x in range(-15, 15)
+\item Select best area for next round
+\item Validate by taking final arguments and calculating error rates for +- few percent for both variables.
+\end{itemize}
+
+\section{Results and performance}
+
+\begin{itemize}
+\item k-fold cross validation: k=20, error rate 11\%
+\item k-fold cross validation: k=5, error rate 11.5\%
+\item One iteration with training set n=40000 and validation set n=2152 about 17 min with 2.1GHz Xeon (single thread)
+\item about 300MB of memory for training set n=42152
+\item Predicting one character: about 2 milliseconds
+
+\end{itemize}
+
+\section{Quick comparison to other algorithms}
+
+\begin{itemize}
+\item kNN (+PCA/LDA)
+\item ...?
+\end{itemize}
+
+
+\cite{albanese12mlpy}
+
+%============================================================
+
+\bibliography{references}
+\end{document}
+
