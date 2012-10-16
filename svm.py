@@ -268,7 +268,7 @@ def main():
 def print_statistics(data):
     """ Print basic statistics and data """
     print "Correct before secondary SVMs: %s" % data["corpercent"]
-    print "Correct after secondary SVMs: %s" % data["corpercent_fixed"]
+    print "Correct after secondary SVMs: %s" % data["corpercent_after"]
 
     print "Characters classified incorrectly:"
     print data["wrong_class"]
