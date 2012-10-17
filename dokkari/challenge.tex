@@ -48,7 +48,7 @@ The training data uncovered sets of characters commonly misclassified by the pri
 While the characters themselves weren't easily classified, it was fairly easy to confidently 
 identify the \emph{sets}.  For each such set, the classification was then delegated to a 
 second-level SVM, specifically trained against that subset of the original problem.  With the 
-latest training runs, we found this to increase our classification performance by almost 0.4\%, 
+latest training runs, we found this to increase our classification performance by over 0.4\%, 
 which we considered quite satisfactory. Together the SVM's form a \emph{classifier tree} of 
 height 2. Adding third level to the \emph{classifier tree} made code more complex, and we couldn't
 distinguish possible advantage from measurement errors.
