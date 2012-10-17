@@ -27,7 +27,7 @@ preprocessed by aligning them to the lower left corner. The SVM uses a Radial Ba
 (RBF) kernel, with chained second-level SVM's specialized in entries commonly misclassified in 
 the training data. The optimal kernel function parameters are sought for using standard 
 grid-search and validated using k-fold cross-validation. With k=20, we achieved 89.6\% 
-classification performance over training set.
+classification performance over the training set.
 
 \section{Detailed description}
 
@@ -50,8 +50,8 @@ identify the \emph{sets}.  For each such set, the classification was then delega
 second-level SVM, specifically trained against that subset of the original problem.  With the 
 latest training runs, we found this to increase our classification performance by almost 0.4\%, 
 which we considered quite satisfactory. Together the SVM's form a \emph{classifier tree} of 
-height 2. Adding third level to the \emph{classifier tree} made code more complex, and we couldn't
-distinguish possible advantage from measurement errors.
+height 2. Adding a third level to the \emph{classifier tree} made the code more complex, and we couldn't
+distinguish any advantages from potential measurement errors.
 
 Optimal parameters for the SVM (and the kernel function) present a maximization problem in a
 2-dimensional search space.  Since an exhaustive search in this space isn't possible,
