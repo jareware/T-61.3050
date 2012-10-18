@@ -60,8 +60,14 @@ Testing dataset:
 \begin{itemize}
 \item http://www.csie.ntu.edu.tw/~cjlin/papers/guide/guide.pdf
 \item http://www.ivanciuc.org/Files/Reprint/Ivanciuc\_SVM\_CCR\_2007\_23\_291.pdf
-\item RBF kernel
+\item RBF kernel: $K(x_i, x_j) = exp(-\gamma || x_i - x_j ||^2), \gamma > 0$
 \end{itemize}
+
+Optimization problem $(x_i, y_i), i = 1, ..., l$ where $x_i$ is ... (\cite{libsvm_guide}):
+
+minimize $w,b,\xi$: $\frac{1}{2}w^Tw + C \sum_{i=1}^l\xi_i$
+
+subject to $y_i(w^T \phi(x_i) + b) \ge 1 - \xi_i, \xi_i \ge 0$
 
 
 \section{RBF kernel parameter search}

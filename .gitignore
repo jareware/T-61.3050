@@ -3,3 +3,5 @@ syntax: glob
 *.bbl
 *.blg
 *.log
+
+misc/solved_img/all/*
