@@ -15,5 +15,4 @@ challenge:
 	bibtex challenge
 
 clean:
-	rm seminar.aux seminar.log seminar.blg
-	rm challenge.aux challenge.log challenge.blg
+	rm *.bbl *.aux *.log *.blg
