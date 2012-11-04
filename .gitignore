@@ -4,4 +4,6 @@ syntax: glob
 *.blg
 *.log
 
+.DS_Store
+
 misc/solved_img/all/*
