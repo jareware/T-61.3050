@@ -32,6 +32,15 @@
 
 %============================================================
 
+
+
+
+% Remember that one of the objectives of the course is to teach you how to apply machine learning methods in a principled way, instead of just running some black box method on data and hoping that it will perform well. Therefore in the report it is not enough, e.g., just to explain the algorithm you implemented. Typically, the report should also include a discussion of why you selected a particular method (pros and cons), the principles of the method, validation of your approach (e.g., feature selection, model complexity selection, validation, estimation of generalization error etc.), your conclusions and other relevant issues.
+% The factual content of the report must be correct and relevant. There should be sufficient amount of essential information (the length of the answer is not merit in itself). The report should give an impression that you understand what you are doing and therefore you are able to apply what you have learned in the course to machine learning problems.
+% You must substantiate all of your claims. For example, you can't claim that your method will generalize well to new data if you haven't shown this, e.g., experimentally, by logical (mathematical) argumentation or by appropopriate citation. You must make a clear distinction between facts, substantiated claims and opinions (opinions being unsubstantiated claims).
+
+
+
 \section{Dataset description}
 
 Training dataset:
@@ -49,10 +58,12 @@ Testing dataset:
 \item Same format
 \end{itemize}
 
-\section{Character preprocessing}
+\section{Method selection/Why SVM?}
 
 \begin{itemize}
-\item Minimize noise by moving characters to bottom left corner. 0.5\% improvement
+\item What other options were there
+\item Why we chose SVM?
+\item A nod to why we think we chose correctly
 \end{itemize}
 
 \section{What is SVM?}
@@ -69,6 +80,11 @@ minimize $w,b,\xi$: $\frac{1}{2}w^Tw + C \sum_{i=1}^l\xi_i$
 
 subject to $y_i(w^T \phi(x_i) + b) \ge 1 - \xi_i, \xi_i \ge 0$
 
+\section{Character preprocessing}
+
+\begin{itemize}
+\item Minimize noise by moving characters to bottom left corner. 0.5\% improvement
+\end{itemize}
 
 \section{RBF kernel parameter search}
 
