@@ -42,22 +42,41 @@ training set of 40000 correctly labelled samples \cite{training_set}.
 
 
 
-\section{Dataset description}
+\section{Data set description}
 
-Training dataset:
+The data set against which our solution was developed consisted of a provided set of 42152
+black-and-white bitmaps, depicting hand-written instances of characters from the English alphabet
+(that is, the task was to classify the bitmaps into 26 distinct categories).  Each bitmap was given
+as a 16-by-8 image, in the form of a binary vector of length 128 (meaning an array of 128 ones or
+zeroes).  The vectors were delivered in a text file, with the correct label associated with each
+vector.
 
-\begin{itemize}
-\item n=42152
-\item 16 x 8 black and white bitmaps
-\item Lowercase characters, n=26 (a-z)
-\end{itemize}
+As an optional extra task, we were provided with the opportunity of participating in a competition
+amongst different solutions to the same classification problem.  The competition was organized by
+first providing only a subset of the training data (10000 vectors), using that to train a
+classifier, and then calculating an error rate against the rest of the training data (which was not
+yet made available at that time).  Our participation in the competition is discussed further in
+Section \ref{ref:datachallenge}.
 
-Testing dataset:
+The same data set was used for both training our classifiers, and testing them afterwards.  The data
+was split using k-fold cross-validation to minimize overfitting, while making the most of the
+available data.  This testing technique is discussed in further detail in Section
+\ref{ref:crossvalidation}.
 
-\begin{itemize}
-\item n=10000
-\item Same format
-\end{itemize}
+%Training dataset:
+%
+%\begin{itemize}
+%\item n=42152
+%\item 16 x 8 black and white bitmaps
+%\item Lowercase characters, n=26 (a-z)
+%\end{itemize}
+%
+%Testing dataset:
+%
+%\begin{itemize}
+%\item n=10000
+%\item Same format
+%\end{itemize}
 
 \section{Method selection/Why SVM?}
 
@@ -91,6 +110,8 @@ subject to $y_i(w^T \phi(x_i) + b) \ge 1 - \xi_i, \xi_i \ge 0$
 
 $\gamma$ and $C$
 
+\label{ref:crossvalidation}
+
 \begin{itemize}
 \item Initial search space 2**x for x in range(-15, 15)
 \item Select best area for next round
@@ -98,6 +119,8 @@ $\gamma$ and $C$
 \end{itemize}
 
 \section{Results and performance}
+
+\label{ref:datachallenge}
 
 \begin{itemize}
 \item k-fold cross validation: k=20, error rate 11\%
