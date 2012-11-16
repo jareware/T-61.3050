@@ -88,17 +88,42 @@ available data.  This testing technique is discussed in further detail in Sectio
 
 \section{What is SVM?}
 
-\begin{itemize}
-\item http://www.csie.ntu.edu.tw/~cjlin/papers/guide/guide.pdf
-\item http://www.ivanciuc.org/Files/Reprint/Ivanciuc\_SVM\_CCR\_2007\_23\_291.pdf
-\item RBF kernel: $K(x_i, x_j) = exp(-\gamma || x_i - x_j ||^2), \gamma > 0$
-\end{itemize}
+Support Vector Machines (SVM's) are a method for supervised machine learning, meaning they solve a
+classification problem by creating a classifier function from a set of existing, labeled data
+points.  This function can then be used to classify (or \emph{label}) subsequent data points
+\emph{without} supervision.  In contrast to \emph{regression methods} which produce continuous
+output, the output of a classifier function is always exactly one class into which the input data
+point belongs.
 
-Optimization problem $(x_i, y_i), i = 1, ..., l$ where $x_i$ is ... (\cite{libsvm_guide}):
+In its most basic implementation, an SVM is trained with data labeled into exactly two separate
+groups.  The resulting classifier is a \emph{binary one}, meaning it will classify subsequent input
+into those same two categories.  If the input data points belong to a two-dimensional space, this
+can be intuitively thought of separating the sets of points belonging to each category by as wide a
+band as possible (or simply a line, with as much space between the line and the nearest data points
+as possible).
 
-minimize $w,b,\xi$: $\frac{1}{2}w^Tw + C \sum_{i=1}^l\xi_i$
+SVM's generalize nicely into higher dimensional spaces.  In an n-dimensional input space, the two
+classes are linearly separated by an (n-1)-dimensional hyperplane instead of a line.  They also
+generalize into working with >2 classes by way of reducing the multi-class classification problem
+into a set of binary classification problems, for example by chaining the binary classifiers so that
+the first classifies the input data as either belonging to class "A" or "other", the second one to
+"B" or other, and so on.
+% TODO: cite http://research.yahoo.com/files/multiclass_mcs_kaibo_05.pdf
 
-subject to $y_i(w^T \phi(x_i) + b) \ge 1 - \xi_i, \xi_i \ge 0$
+TODO: Generalization into non-linear input spaces
+
+%\begin{itemize}
+%\item http://www.csie.ntu.edu.tw/~cjlin/papers/guide/guide.pdf
+%\item http://www.ivanciuc.org/Files/Reprint/Ivanciuc\_SVM\_CCR\_2007\_23\_291.pdf
+%\item RBF kernel: $K(x_i, x_j) = exp(-\gamma || x_i - x_j ||^2), \gamma > 0$
+%\item "Unique Features of SVM's and Kernel Methods" in \cite{berwick09idiots}
+%\end{itemize}
+%
+%Optimization problem $(x_i, y_i), i = 1, ..., l$ where $x_i$ is ... (\cite{libsvm_guide}):
+%
+%minimize $w,b,\xi$: $\frac{1}{2}w^Tw + C \sum_{i=1}^l\xi_i$
+%
+%subject to $y_i(w^T \phi(x_i) + b) \ge 1 - \xi_i, \xi_i \ge 0$
 
 \section{Character preprocessing}
 
