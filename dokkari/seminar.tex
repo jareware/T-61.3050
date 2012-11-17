@@ -144,6 +144,20 @@ specific data set.
 %
 %subject to $y_i(w^T \phi(x_i) + b) \ge 1 - \xi_i, \xi_i \ge 0$
 
+\section{Kernel selection}
+
+% TODO: Did we try out other kernels..?
+
+The Radial Basis Function (RBF) kernel is a common first-choice kernel suggested by literature
+\cite{libsvm_guide,svm_chemistry}. It has several desireable properties.  Firstly, it is numerically
+robust in comparison to some other kernels.  Secondly, another common alternative - the linear
+kernel - is simply a special case of the RBF one.  Thirdly, and perhaps most importantly, the SVM
+kernel is configured with only two parameters (as opposed to the 4 parameters of the polynomial
+kernel, for example).  As the parameter search is in essence a local optimization problem, having a
+2-dimensional search space makes this problem more manageable than, say, searching in 4 dimensions.
+The parameter search is discussed further in Section \ref{ref:kernelparamsearch}.
+% TODO: cite http://www.csie.ntu.edu.tw/~cjlin/papers/guide/guide.pdf
+
 \section{Character preprocessing}
 
 An SVM operates on input data represented as vectors of real numbers.  Scaling the input data is
@@ -167,6 +181,19 @@ performance by 0.5\%.
 %\end{itemize}
 
 \section{RBF kernel parameter search}
+
+\label{ref:kernelparamsearch}
+
+%Optimal parameters for the SVM (and the kernel function) present a maximization problem in a
+%2-dimensional search space: $\gamma$ for kernel and $C$ for SVM penalty parameter.  Since an
+%exhaustive search in this space isn't possible, a basic grid search was employed.  The performance
+%of the classifier tree in each grid point was evaluated using k-fold cross-validation.
+%Cross-validation was chosen as it provides reasonable protection against overfitting against the
+%training data.
+%
+%We also tried building a \emph{classifier tree} by having secondary classifiers for commonly
+%misclassified pairs. However, after carefully selecting primary classifier parameters $\gamma$ and
+%$C$, single classifier performed better than the classifier tree.
 
 $\gamma$ and $C$
 
