@@ -184,13 +184,21 @@ performance by 0.5\%.
 
 \label{ref:kernelparamsearch}
 
-Optimal parameters for the SVM (and the kernel function) present a maximization problem in a
-2-dimensional search space: $\gamma$ for kernel and $C$ for SVM penalty parameter.  Since an
-exhaustive search in this space isn't possible, a basic grid search was employed.
+Optimal parameters for the SVM (and the kernel function) present a local optimization problem in a
+2-dimensional search space.  The dimensions being explored are $\gamma$ (the RBF kernel parameter)
+and $C$ (the SVM penalty parameter).  Since an exhaustive search in this space isn't possible, a
+basic grid search was employed.
 
-%$\gamma$ and $C$
+% TODO: Check that the below numbers are correct & fill in X & Y
+In the first step of the search, the space was divided into a grid of 6-by-6 (totaling 36 cells),
+covering the range [-10,0] for $\gamma$, and [-1,9] for $C$.  At the origin point in each cell, the
+classification performance was then measured.  Out of the explored cells, the best one was chosen
+for the next step.  In the second step, the candidate cell was further explored with a finer grid.
+This grid was X-by-Y around the origin point, covering the area within a few percent of the origin.
 
 \label{ref:crossvalidation}
+
+% TODO: Talk about cross-validation
 
 %\begin{itemize}
 %\item Initial search space 2**x for x in range(-15, 15)
