@@ -102,6 +102,7 @@ can be intuitively thought of separating the data points into two clusters.  To 
 potential for generalization error, the clusters should be separated by as wide a band as possible
 (or in simpler terms, by a line, with as much space between the line and the nearest data points as
 possible).
+% TODO: cite http://www.ivanciuc.org/Files/Reprint/Ivanciuc_SVM_CCR_2007_23_291.pdf
 
 SVM's generalize nicely into higher dimensional spaces.  In an n-dimensional input space, the two
 classes are linearly separated by an (n-1)-dimensional hyperplane instead of a line.  They also
@@ -111,7 +112,25 @@ classifiers so that the first classifies the input data as either belonging to c
 the second one to "B" or other, and so on.
 % TODO: cite http://research.yahoo.com/files/multiclass_mcs_kaibo_05.pdf
 
-TODO: Generalization into non-linear input spaces
+The above works off the assumption that the sets being discriminated are linearly separable in the
+input space.  With realistic data sets, however, this is often not the case.  To keep the sets
+linearly separable (and thus the SVM approach applicable), the input space can be mapped into a much
+higher-dimensional space.  The assumption is that with this added sparsity, a linearly separating
+hyperplane can be found, even for problematic input data sets.
+% TODO: cite Press, William H.; Teukolsky, Saul A.; Vetterling, William T.; Flannery, B. P. (2007). "Section 16.5. Support Vector Machines". Numerical Recipes: The Art of Scientific Computing (3rd ed.). New York: Cambridge University Press. ISBN 978-0-521-88068-8.
+
+% TODO: Is the dimensionality increase actually due to the kernel function, or are they separate?
+Such mappings can be achieved using what are known as \emph{kernel functions}.  Kernel functions
+have special properties that, in addition to helping the linear separability, reduce the
+computational load bearable.  Numerous kernel functions have been proposed in literature, and new
+ones are being researched.  The performance characteristics of the functions are highly dependent on
+the type of classification problem at hand, and the properties of the input space, and not all
+kernels work for all problems.  There is, however, little theoretical base on how to \emph{choose} a
+suitable kernel for a given data set, and thus it is in fact common to simply rely on empirical
+methods and compare the performance some common kernels, choosing the one that best fits the
+specific data set.
+% TODO: cite http://www.ivanciuc.org/Files/Reprint/Ivanciuc_SVM_CCR_2007_23_291.pdf
+% TODO: cite Press, William H.; Teukolsky, Saul A.; Vetterling, William T.; Flannery, B. P. (2007). "Section 16.5. Support Vector Machines". Numerical Recipes: The Art of Scientific Computing (3rd ed.). New York: Cambridge University Press. ISBN 978-0-521-88068-8.
 
 %\begin{itemize}
 %\item http://www.csie.ntu.edu.tw/~cjlin/papers/guide/guide.pdf
