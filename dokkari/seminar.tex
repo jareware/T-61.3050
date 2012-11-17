@@ -198,7 +198,23 @@ This grid was X-by-Y around the origin point, covering the area within a few per
 
 \label{ref:crossvalidation}
 
-% TODO: Talk about cross-validation
+The aforementioned classification performance was measured using a technique known as \emph{k-fold
+cross-validation}.  In a naive implementation of classifier training, the input data would be
+divided into two different sets: a training set, which is used to train the classifier, and a
+validation set, that is used to measure the performance of the classifier (as both sets contain the
+correct labels for data points).  This approach is not optimal, however: the classifier may suffer
+from \emph{overfitting}, meaning it ends up modeling more the training set, instead of the actual
+classification problem being solved.  This is due to the classifier being trained only against a
+specific part of the training data, and validated against another.  How those sets are chosen (that
+is, picked from the entire set of labelled data available) can greatly affect the resulting
+classifier.  Should the validation data set be chosen with a bit of bad luck, for example, it may
+end up containing a very specific subset of the entire data, skewing the resulting error rates.
+
+K-fold cross-validation avoids these issues by dividing the labelled data into k-segments of equal
+size, and then using each as the validation set in turn.  The rest of the segments are then used to
+train the classifier being validated.  Once each segment has been validated against, the error rate
+is calculated over the entire set of validations.  This both makes use of the entire data set for
+training, and avoids overfitting, all parts of the data are (at one point) used for validation.
 
 %\begin{itemize}
 %\item Initial search space 2**x for x in range(-15, 15)
