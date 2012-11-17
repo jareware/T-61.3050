@@ -146,9 +146,25 @@ specific data set.
 
 \section{Character preprocessing}
 
-\begin{itemize}
-\item Minimize noise by moving characters to bottom left corner. 0.5\% improvement
-\end{itemize}
+An SVM operates on input data represented as vectors of real numbers.  Scaling the input data is
+very important with SVM's; features of the input data with large numerical ranges can easily
+dominate ones with smaller ranges, even though the width of their range has no real correlation with
+their importance in the actual classification problem at hand.  It is thus suggested to always scale
+the data into a normalized range of [-1,1], or even [0,1].
+% TODO: cite http://www.csie.ntu.edu.tw/~cjlin/papers/guide/guide.pdf
+
+Much of the preprocessing for the input data in our experiment was already done for us; the image
+data was nicely encoded into a set of binary vectors, so no bitmap processing was required.  Also,
+since the vectors were binary, no data scaling was required.
+
+The single preprocessing technique we opted for was basic noise reduction, by moving each image to
+the bottom left corner.  That is, making sure images otherwise identical except for their padding
+would still look identical to the algorithm.  We found this to increase our initial classification
+performance by 0.5\%.
+
+%\begin{itemize}
+%\item Minimize noise by moving characters to bottom left corner. 0.5\% improvement
+%\end{itemize}
 
 \section{RBF kernel parameter search}
 
