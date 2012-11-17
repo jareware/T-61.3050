@@ -93,21 +93,22 @@ classification problem by creating a classifier function from a set of existing,
 points.  This function can then be used to classify (or \emph{label}) subsequent data points
 \emph{without} supervision.  In contrast to \emph{regression methods} which produce continuous
 output, the output of a classifier function is always exactly one class into which the input data
-point belongs.
+point (likely) belongs.
 
 In its most basic implementation, an SVM is trained with data labeled into exactly two separate
 groups.  The resulting classifier is a \emph{binary one}, meaning it will classify subsequent input
 into those same two categories.  If the input data points belong to a two-dimensional space, this
-can be intuitively thought of separating the sets of points belonging to each category by as wide a
-band as possible (or simply a line, with as much space between the line and the nearest data points
-as possible).
+can be intuitively thought of separating the data points into two clusters.  To minimize the
+potential for generalization error, the clusters should be separated by as wide a band as possible
+(or in simpler terms, by a line, with as much space between the line and the nearest data points as
+possible).
 
 SVM's generalize nicely into higher dimensional spaces.  In an n-dimensional input space, the two
 classes are linearly separated by an (n-1)-dimensional hyperplane instead of a line.  They also
 generalize into working with >2 classes by way of reducing the multi-class classification problem
-into a set of binary classification problems, for example by chaining the binary classifiers so that
-the first classifies the input data as either belonging to class "A" or "other", the second one to
-"B" or other, and so on.
+into a set of binary classification problems.  This can be done, for example, by chaining the binary
+classifiers so that the first classifies the input data as either belonging to class "A" or "other",
+the second one to "B" or other, and so on.
 % TODO: cite http://research.yahoo.com/files/multiclass_mcs_kaibo_05.pdf
 
 TODO: Generalization into non-linear input spaces
