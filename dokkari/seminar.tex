@@ -184,26 +184,30 @@ performance by 0.5\%.
 
 \label{ref:kernelparamsearch}
 
-%Optimal parameters for the SVM (and the kernel function) present a maximization problem in a
-%2-dimensional search space: $\gamma$ for kernel and $C$ for SVM penalty parameter.  Since an
-%exhaustive search in this space isn't possible, a basic grid search was employed.  The performance
-%of the classifier tree in each grid point was evaluated using k-fold cross-validation.
-%Cross-validation was chosen as it provides reasonable protection against overfitting against the
-%training data.
-%
+Optimal parameters for the SVM (and the kernel function) present a maximization problem in a
+2-dimensional search space: $\gamma$ for kernel and $C$ for SVM penalty parameter.  Since an
+exhaustive search in this space isn't possible, a basic grid search was employed.
+
+%$\gamma$ and $C$
+
+\label{ref:crossvalidation}
+
+%\begin{itemize}
+%\item Initial search space 2**x for x in range(-15, 15)
+%\item Select best area for next round
+%\item Validate by taking final arguments and calculating error rates for +- few percent for both variables.
+%\end{itemize}
+
+\section{Classifier chaining}
+
 %We also tried building a \emph{classifier tree} by having secondary classifiers for commonly
 %misclassified pairs. However, after carefully selecting primary classifier parameters $\gamma$ and
 %$C$, single classifier performed better than the classifier tree.
 
-$\gamma$ and $C$
-
-\label{ref:crossvalidation}
-
-\begin{itemize}
-\item Initial search space 2**x for x in range(-15, 15)
-\item Select best area for next round
-\item Validate by taking final arguments and calculating error rates for +- few percent for both variables.
-\end{itemize}
+%The performance
+%of the classifier tree in each grid point was evaluated using k-fold cross-validation.
+%Cross-validation was chosen as it provides reasonable protection against overfitting against the
+%training data.
 
 \section{Results and performance}
 
