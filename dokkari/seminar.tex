@@ -24,7 +24,8 @@
 This paper describes a solution to an optical character recognition problem for bitmap characters
 using Support Vector Machines with an RBF kernel, including a description of RBF parameter search
 and bitmap normalization.  Classification performance of 90.8\% was achieved against a given
-training set of 42152 correctly labelled samples using k-fold crossvalidation with k=20 \cite{training_set}.
+training set of 42152 correctly labelled samples using k-fold crossvalidation with k=20
+\cite{training_set}.
 
 \vspace{3mm}
 \noindent KEYWORDS: SVM, Support Vector Machine, RBF, OCR, Character Recognition
@@ -90,14 +91,12 @@ One initial contender was Principal Component Analysis (PCA).  PCA works by redu
 high-dimensional data set into a (hopefully) smaller set of dimensions, so that the resulting
 dimensions capture most of the variance of the original space.  PCA by itself is not a complete
 solution to our problem, as the data points would still have to be labelled in the dimensionally
-reduced input space.
-% TODO: cite http://ranger.uta.edu/~chqding/papers/KmeansPCA1.pdf
+reduced input space. \cite{ding2004k}
 
 For this task, with or without the help of PCA, one could use basic clustering algorithms such as
 k-means clustering.  k-means clustering works by identifying exactly k clusters from the input data,
 without supervision.  We had pre-labelled training data at our disposal, however, so we could make
-use of supervised learning methods instead.
-% TODO: cite http://ranger.uta.edu/~chqding/papers/KmeansPCA1.pdf
+use of supervised learning methods instead. \cite{ding2004k}
 
 Perhaps the simplest of all supervised machine learning methods is the k-nearest neighbor (kNN)
 algorithm.  It works by assigning classes to samples by way of majority vote: for an incoming,
@@ -113,8 +112,7 @@ classification problem (OCR).  The underlying mathematics and theory of the meth
 scope of this paper, and ready-made implementations are available for several common programming
 languages.  Thus, an intimate understanding of the inner workings of the algorithm would not be
 required, as we would only be configuring and using an SVM, and not implementing one from scratch.
-SVM's are described in more detail in Section \ref{ref:svmintro} below.
-% TODO: cite http://www.csie.ntu.edu.tw/~cjlin/papers/guide/guide.pdf
+SVM's are described in more detail in Section \ref{ref:svmintro} below. \cite{libsvm_guide}
 
 Based on the performance of our solution, we have reason to believe we made a sensible choice in
 using SVM's for this task.  The performance aspects are discussed further in Section
@@ -143,8 +141,7 @@ into those same two categories.  If the input data points belong to a two-dimens
 can be intuitively thought of separating the data points into two clusters.  To minimize the
 potential for generalization error, the clusters should be separated by as wide a band as possible
 (or in simpler terms, by a line, with as much space between the line and the nearest data points as
-possible).
-% TODO: cite http://www.ivanciuc.org/Files/Reprint/Ivanciuc_SVM_CCR_2007_23_291.pdf
+possible). \cite{svm_chemistry}
 
 \label{ref:multiclasssvm}
 
@@ -153,15 +150,13 @@ classes are linearly separated by an (n-1)-dimensional hyperplane instead of a l
 generalize into working with >2 classes by way of reducing the multi-class classification problem
 into a set of binary classification problems.  This can be done, for example, by chaining the binary
 classifiers so that the first classifies the input data as either belonging to class "A" or "other",
-the second one to "B" or other, and so on.
-% TODO: cite http://research.yahoo.com/files/multiclass_mcs_kaibo_05.pdf
+the second one to "B" or other, and so on. \cite{duan2005best}
 
 The above works off the assumption that the sets being discriminated are linearly separable in the
 input space.  With realistic data sets, however, this is often not the case.  To keep the sets
 linearly separable (and thus the SVM approach applicable), the input space can be mapped into a much
 higher-dimensional space.  The assumption is that with this added sparsity, a linearly separating
-hyperplane can be found, even for problematic input data sets.
-% TODO: cite Press, William H.; Teukolsky, Saul A.; Vetterling, William T.; Flannery, B. P. (2007). "Section 16.5. Support Vector Machines". Numerical Recipes: The Art of Scientific Computing (3rd ed.). New York: Cambridge University Press. ISBN 978-0-521-88068-8.
+hyperplane can be found, even for problematic input data sets. \cite{svm_chemistry}
 
 Such mappings can be achieved using what are known as \emph{kernel functions}.  Kernel functions
 have special properties that, in addition to helping the linear separability, reduce the
@@ -171,9 +166,7 @@ the type of classification problem at hand, and the properties of the input spac
 kernels work for all problems.  There is, however, little theoretical base on how to \emph{choose} a
 suitable kernel for a given data set, and thus it is in fact common to simply rely on empirical
 methods and compare the performance some common kernels, choosing the one that best fits the
-specific data set.
-% TODO: cite http://www.ivanciuc.org/Files/Reprint/Ivanciuc_SVM_CCR_2007_23_291.pdf
-% TODO: cite Press, William H.; Teukolsky, Saul A.; Vetterling, William T.; Flannery, B. P. (2007). "Section 16.5. Support Vector Machines". Numerical Recipes: The Art of Scientific Computing (3rd ed.). New York: Cambridge University Press. ISBN 978-0-521-88068-8.
+specific data set. \cite{svm_chemistry}
 
 %\begin{itemize}
 %\item http://www.csie.ntu.edu.tw/~cjlin/papers/guide/guide.pdf
@@ -197,8 +190,7 @@ kernel - is simply a special case of the RBF one.  Thirdly, and perhaps most imp
 kernel is configured with only two parameters (as opposed to the 4 parameters of the polynomial
 kernel, for example).  As the parameter search is in essence a local optimization problem, having a
 2-dimensional search space makes this problem more manageable than, say, searching in 4 dimensions.
-The parameter search is discussed further in Section \ref{ref:kernelparamsearch}.
-% TODO: cite http://www.csie.ntu.edu.tw/~cjlin/papers/guide/guide.pdf
+The parameter search is discussed further in Section \ref{ref:kernelparamsearch}. \cite{libsvm_guide}
 
 We did briefly try out other kernel functions (as many are readily provided with our SVM
 implementation of choice, mlpy \cite{albanese12mlpy}), but we ended up agreeing with our first
@@ -213,8 +205,7 @@ An SVM operates on input data represented as vectors of real numbers.  Scaling t
 very important with SVM's; features of the input data with large numerical ranges can easily
 dominate ones with smaller ranges, even though the width of their range has no real correlation with
 their importance in the actual classification problem at hand.  It is thus suggested to always scale
-the data into a normalized range of [-1,1], or even [0,1].
-% TODO: cite http://www.csie.ntu.edu.tw/~cjlin/papers/guide/guide.pdf
+the data into a normalized range of [-1,1], or even [0,1]. \cite{libsvm_guide}
 
 Much of the preprocessing for the input data in our experiment was already done for us; the image
 data was nicely encoded into a set of binary vectors, so no bitmap processing was required.  Also,
