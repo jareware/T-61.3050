@@ -190,8 +190,6 @@ specific data set.
 
 \section{Kernel selection}
 
-% TODO: Did we try out other kernels..?
-
 The Radial Basis Function (RBF) kernel is a common first-choice kernel suggested by literature
 \cite{libsvm_guide,svm_chemistry}. It has several desireable properties.  Firstly, it is numerically
 robust in comparison to some other kernels.  Secondly, another common alternative - the linear
@@ -201,6 +199,13 @@ kernel, for example).  As the parameter search is in essence a local optimizatio
 2-dimensional search space makes this problem more manageable than, say, searching in 4 dimensions.
 The parameter search is discussed further in Section \ref{ref:kernelparamsearch}.
 % TODO: cite http://www.csie.ntu.edu.tw/~cjlin/papers/guide/guide.pdf
+
+We did briefly try out other kernel functions (as many are readily provided with our SVM
+implementation of choice, mlpy \cite{albanese12mlpy}), but we ended up agreeing with our first
+choice of RBF, as it seemed the best performer against our data set.  Also, since a much bigger part
+of the effort in configuring an SVM has to do with choosing proper parameters for the kernel
+function, RBF had desireable properties in that regard as well.  These are discussed further in
+Section \ref{ref:kernelparamsearch}.
 
 \section{Character preprocessing}
 
