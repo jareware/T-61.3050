@@ -80,13 +80,55 @@ available data.  This testing technique is discussed in further detail in Sectio
 
 \section{Method selection}
 
-\begin{itemize}
-\item What other options were there
-\item Why we chose SVM?
-\item A nod to why we think we chose correctly
-\end{itemize}
+There is no de-facto solution to the problem we were facing; Optical Character Recognition (OCR) is
+a wide field of research with ongoing investigation into new methods.  An important factor in method
+selection was simplicity - in the beginning of the project, we were not seasoned experts in OCR or
+Machine Learning, so we were looking for established methods that work robustly even in the hands of
+beginners.
+
+One initial contender was Principal Component Analysis (PCA).  PCA works by reducing a
+high-dimensional data set into a (hopefully) smaller set of dimensions, so that the resulting
+dimensions capture most of the variance of the original space.  PCA by itself is not a complete
+solution to our problem, as the data points would still have to be labelled in the dimensionally
+reduced input space.
+% TODO: cite http://ranger.uta.edu/~chqding/papers/KmeansPCA1.pdf
+
+For this task, with or without the help of PCA, one could use basic clustering algorithms such as
+k-means clustering.  k-means clustering works by identifying exactly k clusters from the input data,
+without supervision.  We had pre-labelled training data at our disposal, however, so we could make
+use of supervised learning methods instead.
+% TODO: cite http://ranger.uta.edu/~chqding/papers/KmeansPCA1.pdf
+
+Perhaps the simplest of all supervised machine learning methods is the k-nearest neighbor (kNN)
+algorithm.  It works by assigning classes to samples by way of majority vote: for an incoming,
+unlabelled sample, the k nearest neighbors are looked up (using either simple euclidian distance, or
+a custom distance function).  The assigned class is decided simply by observing the class
+memberships of the neighbors and choosing the most common one.  kNN is not guaranteed to work well
+with high-dimensional input data, however, and would likely require at least dimensionality
+reduction by PCA or other preprocessing methods. \cite{Beyer99whenis}
+
+In the end we chose to go with Support Vector Machines (SVM's), which were suggested by our
+literature review as a relatively simple yet effective machine learning method for our type of
+classification problem (OCR).  The underlying mathematics and theory of the method is beyond the
+scope of this paper, and ready-made implementations are available for several common programming
+languages.  Thus, an intimate understanding of the inner workings of the algorithm would not be
+required, as we would only be configuring and using an SVM, and not implementing one from scratch.
+SVM's are described in more detail in Section \ref{ref:svmintro} below.
+% TODO: cite http://www.csie.ntu.edu.tw/~cjlin/papers/guide/guide.pdf
+
+Based on the performance of our solution, we have reason to believe we made a sensible choice in
+using SVM's for this task.  The performance aspects are discussed further in Section
+\ref{ref:datachallenge}.
+
+%\begin{itemize}
+%\item What other options were there
+%\item Why we chose SVM?
+%\item A nod to why we think we chose correctly
+%\end{itemize}
 
 \section{Support Vector Machines}
+
+\label{ref:svmintro}
 
 Support Vector Machines (SVM's) are a method for supervised machine learning, meaning they solve a
 classification problem by creating a classifier function from a set of existing, labeled data
