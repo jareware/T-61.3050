@@ -14,7 +14,7 @@
 
 \author{Olli Jarva \& Jarno Rantanen \\
         Aalto University School of Science \\
-	\texttt{olli@jarva.fi} \texttt{\&} \texttt{jarno@jrw.fi}}
+        \texttt{olli@jarva.fi} \texttt{\&} \texttt{jarno@jrw.fi}}
 \maketitle
 
 %==========================================================
@@ -51,6 +51,8 @@ black-and-white bitmaps, depicting hand-written instances of characters from the
 as a 16-by-8 image, in the form of a binary vector of length 128 (meaning an array of 128 ones or
 zeroes).  The vectors were delivered in a text file, with the correct label associated with each
 vector.
+
+\label{ref:datasetdescription}
 
 As an optional extra task, we were provided with the opportunity of participating in a competition
 amongst different solutions to the same classification problem.  The competition was organized by
@@ -98,13 +100,15 @@ k-means clustering.  k-means clustering works by identifying exactly k clusters 
 without supervision.  We had pre-labelled training data at our disposal, however, so we could make
 use of supervised learning methods instead. \cite{ding2004k}
 
+\label{ref:knn}
+
 Perhaps the simplest of all supervised machine learning methods is the k-nearest neighbor (kNN)
 algorithm.  It works by assigning classes to samples by way of majority vote: for an incoming,
 unlabelled sample, the k nearest neighbors are looked up (using either simple euclidian distance, or
 a custom distance function).  The assigned class is decided simply by observing the class
 memberships of the neighbors and choosing the most common one.  kNN is not guaranteed to work well
 with high-dimensional input data, however, and would likely require at least dimensionality
-reduction by PCA or other preprocessing methods. \cite{Beyer99whenis}
+reduction by PCA or other preprocessing methods. \cite{keller1985fuzzy}
 
 In the end we chose to go with Support Vector Machines (SVM's), which were suggested by our
 literature review as a relatively simple yet effective machine learning method for our type of
@@ -288,16 +292,102 @@ construct yielded significant improvements.
 
 \section{Results and performance}
 
+% TODO: Fill in X below
+We were happy with the performance of our solution.  We achieved a classification performance of
+90.8\% against the given training set of 42152 correctly labelled samples, as measured by k-fold
+crossvalidation with k=20.  On a 2.1GHz Xeon development machine, a full run of the training and
+validation phases (as the cross-validation requires several trainings and validations) for a given
+combination of $\gamma$ and $C$ took approximately X minutes (single-threaded).
+
+\begin{table}[t]
+\centering
+\begin{tabular}{|r|r|r|r|}
+\hline
+Character & Instances & Correct (\%) & Correct \\
+\hline
+a &   1076 &    90.89\% &    978 \\
+b &    424 &    93.40\% &    396 \\
+c &    408 &    93.14\% &    380 \\
+d &    562 &    88.43\% &    497 \\
+e &   1192 &    93.96\% &    1120 \\
+f &    198 &    80.81\% &    160 \\
+g &    233 &    88.41\% &    206 \\
+h &    238 &    84.03\% &    200 \\
+i &    960 &    86.98\% &    835 \\
+k &     92 &    90.22\% &    83 \\
+l &    865 &    89.60\% &    775 \\
+m &    186 &    95.16\% &    177 \\
+n &    671 &    95.83\% &    643 \\
+o &    457 &    97.37\% &    445 \\
+p &     94 &    98.94\% &    93 \\
+q &    201 &    32.34\% &    65 \\
+r &    322 &    91.93\% &    296 \\
+s &    304 &    92.43\% &    281 \\
+t &    542 &    91.33\% &    495 \\
+u &    304 &    89.14\% &    271 \\
+w &    380 &    81.32\% &    309 \\
+y &    188 &    84.04\% &    158 \\
+z &    103 &    86.41\% &    89 \\
+\hline
+\end{tabular}
+\caption{Per-character classification performance.  Percentages are in relation to the actual count
+of the character; that is, out of all instances of the character, how many were correctly
+classified.}
+\label{tab:percharperformance}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=120mm]{percharperf.png}
+\caption{Per-character classification performance, visualized.  See Table
+    \ref{tab:percharperformance} for the source data.}
+\label{fig:percharperformance}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=120mm]{chardist.png}
+\caption{Character distribution in the data set.  Our predictions (that is, labels assigned by our
+algorithm) have been contrasted with the correctly labelled data.}
+\label{fig:chardistribution}
+\end{figure}
+
+Per-character classification performance has been included in Table \ref{tab:percharperformance},
+and visualized in Figure \ref{fig:percharperformance}.  The most noteworthy dip in performance is
+for the character "q".  This cannot be completely explained by the per-character data alone; the
+character "q" is relatively infrequent, which could explain an elevated \emph{relative}
+misclassification rate, but characters such as "p" and "k" are rarer and do not suffer from such
+high rates.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=135mm]{charmap.png}
+\caption{Character misclassification map.  The correct label can be read from the left, and the
+incorrect classification from the top.  The values have been scaled with the relative frequency of
+the character in question.  The highest 10\% of values has been highlighted.}
+\label{fig:charmisclassifications}
+\end{figure}
+
+% TODO: Explain the mystery of "q" with the fig:charmisclassifications map.
+
 \label{ref:datachallenge}
 
-\begin{itemize}
-\item k-fold cross validation: k=20, error rate 11\%
-\item k-fold cross validation: k=5, error rate 11.5\%
-\item One iteration with training set n=40000 and validation set n=2152 about 17 min with 2.1GHz Xeon (single thread)
-\item about 300MB of memory for training set n=42152
-\item Predicting one character: about 2 milliseconds
+% TODO: Fill in X & Y below
+The voluntary competition amongst other solutions to the same classification problem mentioned in
+Section \ref{ref:datasetdescription} ended up favoring our solution.  The closest contender (at an
+error rate of X\%, compared to our Y\%) was, interestingly, an implementation of kNN, which was
+discussed as one of our early candidates in Section \ref{ref:knn}.  What made the solution
+interesting was its simplicity - kNN is one of the simplest methods of machine learning, yet still
+quite effective with suitable kinds of problems \cite{keller1985fuzzy}.
 
-\end{itemize}
+%\begin{itemize}
+%\item k-fold cross validation: k=20, error rate 11\%
+%\item k-fold cross validation: k=5, error rate 11.5\%
+%\item One iteration with training set n=40000 and validation set n=2152 about 17 min with 2.1GHz Xeon (single thread)
+%\item about 300MB of memory for training set n=42152
+%\item Predicting one character: about 2 milliseconds
+%
+%\end{itemize}
 
 \section{Quick comparison to other algorithms}
 
