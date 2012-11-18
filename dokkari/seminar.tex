@@ -104,6 +104,8 @@ potential for generalization error, the clusters should be separated by as wide 
 possible).
 % TODO: cite http://www.ivanciuc.org/Files/Reprint/Ivanciuc_SVM_CCR_2007_23_291.pdf
 
+\label{ref:multiclasssvm}
+
 SVM's generalize nicely into higher dimensional spaces.  In an n-dimensional input space, the two
 classes are linearly separated by an (n-1)-dimensional hyperplane instead of a line.  They also
 generalize into working with >2 classes by way of reducing the multi-class classification problem
@@ -224,9 +226,22 @@ training, and avoids overfitting, as all parts of the data are (at one point) us
 
 \section{Classifier chaining}
 
-%We also tried building a \emph{classifier tree} by having secondary classifiers for commonly
-%misclassified pairs. However, after carefully selecting primary classifier parameters $\gamma$ and
-%$C$, single classifier performed better than the classifier tree.
+During initial testing we found that certain pairs of characters were often confused by the
+classifier.  As an example, the characters "i" and "l" were commonly misclassified.  To compensate
+for this, we adjusted the primary classifier to treat "i" and "l" (and similar other pairs of
+characters) as a single category.  Then, after the primary classification, the input data points
+classified into these combined categories were sent to a second-level SVM, specifically trained to
+discriminate between the two characters in the combined category.  This effectively turned our
+classifier into a \emph{classifier tree}, with second-level classifiers chained to the primary SVM.
+
+Even though this approach originally yielded classification performance improvements of a few
+percent, after carefully selecting the primary classifier parameters $\gamma$ and $C$, the original
+primary classifier performed better than the classifier tree.  In the end, this was both desireable
+and intuitive.  It was desireable because it makes our solution simpler, and simple solutions are
+easier to sanity-check.  It was intuitive (especially in retrospect) because our solution was in
+fact analoguous to how multi-class SVM's are often constructed internally anyway (as discussed in
+Section \ref{ref:multiclasssvm}), so it would have been unexpected had our duplication of this
+construct yielded significant improvements.
 
 %The performance
 %of the classifier tree in each grid point was evaluated using k-fold cross-validation.
