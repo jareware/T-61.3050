@@ -153,7 +153,7 @@ label associated with that input:
 
 \begin{center}
 min($w,b,\xi$): $\frac{1}{2}w^Tw + C \sum_{i=1}^l\xi_i$, \\
-subject to $y_i(w^T \phi(x_i) + b) \ge 1 - \xi_i, \xi_i \ge 0$,
+subject to $y_i(w^T \phi(x_i) + b) \ge 1 - \xi_i, \xi_i \ge 0$
 \end{center}
 
 where $C$ is the penalty parameter (see Section \ref{ref:kernelparamsearch} for how it is chosen),
@@ -319,46 +319,49 @@ combination of $\gamma$ and $C$ took approximately 6 hours (single-threaded).
 
 \begin{table}[t]
 \centering
-\begin{tabular}{|r|r|r|r|}
+\begin{tabular}{|r|r|r|}
 \hline
-Character & Instances & Correct (\%) & Correct \\
+Character & Misclass. (\%) & Misclass. \\
 \hline
-a &   1076 &    90.89\% &    978 \\
-b &    424 &    93.40\% &    396 \\
-c &    408 &    93.14\% &    380 \\
-d &    562 &    88.43\% &    497 \\
-e &   1192 &    93.96\% &    1120 \\
-f &    198 &    80.81\% &    160 \\
-g &    233 &    88.41\% &    206 \\
-h &    238 &    84.03\% &    200 \\
-i &    960 &    86.98\% &    835 \\
-k &     92 &    90.22\% &    83 \\
-l &    865 &    89.60\% &    775 \\
-m &    186 &    95.16\% &    177 \\
-n &    671 &    95.83\% &    643 \\
-o &    457 &    97.37\% &    445 \\
-p &     94 &    98.94\% &    93 \\
-q &    201 &    32.34\% &    65 \\
-r &    322 &    91.93\% &    296 \\
-s &    304 &    92.43\% &    281 \\
-t &    542 &    91.33\% &    495 \\
-u &    304 &    89.14\% &    271 \\
-w &    380 &    81.32\% &    309 \\
-y &    188 &    84.04\% &    158 \\
-z &    103 &    86.41\% &    89 \\
+a &   5.62\% &   217 \\
+b &   1.76\% &   68 \\
+c &   3.27\% &   126 \\
+d &   2.20\% &   85 \\
+e &   3.89\% &   150 \\
+f &   3.94\% &   152 \\
+g &   4.90\% &   189 \\
+h &   3.03\% &   117 \\
+i &  12.57\% &   485 \\
+j &   1.43\% &   55 \\
+k &   3.42\% &   132 \\
+l &   5.21\% &   201 \\
+m &   1.81\% &   70 \\
+n &   5.47\% &   211 \\
+o &   3.39\% &   131 \\
+p &   1.58\% &   61 \\
+q &   2.67\% &   103 \\
+r &   5.78\% &   223 \\
+s &   2.33\% &   90 \\
+t &   3.96\% &   153 \\
+u &   6.17\% &   238 \\
+v &   4.72\% &   182 \\
+w &   0.93\% &   36 \\
+x &   1.92\% &   74 \\
+y &   5.70\% &   220 \\
+z &   2.33\% &   90 \\
 \hline
 \end{tabular}
-\caption{Per-character classification performance.  Percentages are in relation to the actual count
-of the character; that is, out of all instances of the character, how many were correctly
-classified.}
+\caption{Per-character misclassifications.  Percentages are in relation to the total count of all
+characters misclassified by the SVM.}
 \label{tab:percharperformance}
 \end{table}
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=120mm]{percharperf.png}
-\caption{Per-character classification performance, visualized.  See Table
-    \ref{tab:percharperformance} for the source data.}
+\caption{Per-character misclassifications, visualized.  The higher the percentage, the more commonly
+the character was assigned with an incorrect label.  See Table \ref{tab:percharperformance} for the
+source data.}
 \label{fig:percharperformance}
 \end{figure}
 
@@ -372,10 +375,12 @@ algorithm) have been contrasted with the correctly labelled data.}
 
 Per-character classification performance has been included in Table \ref{tab:percharperformance},
 and visualized in Figure \ref{fig:percharperformance}.  The most noteworthy dip in performance is
-for the character "q".  This cannot be completely explained by the per-character data alone; the
-character "q" is relatively infrequent, which could explain an elevated \emph{relative}
-misclassification rate, but characters such as "p" and "k" are rarer and do not suffer from such
-high rates.
+for the character "i".  It is a fairly common character in the data set (see Figure
+\ref{fig:chardistribution}), so the performance drop shouldn't be an artifact of infrequency and bad
+luck, for example.  The visualization of pairwise misclassifications in Figure
+\ref{fig:charmisclassifications} helps explain this, as it shows there is another character (namely
+"l") which is \emph{very} commonly confused with "i".  Furthermore, Figure \ref{fig:charpairs}
+highlights the visual similarity between the two.
 
 \begin{figure}[t]
 \centering
@@ -386,10 +391,8 @@ the character in question.  The highest 10\% of values has been highlighted.}
 \label{fig:charmisclassifications}
 \end{figure}
 
-% TODO: Explain the mystery of "q" with the fig:charmisclassifications map.
-
-From this map it is also easy to recognize the most common pairs of characters to be misclassified.
-By far the most common pair is "i" and "l".
+From this map it is easy to recognize the most common pairs of characters to be misclassified.
+By far the most common pair is the aforementioned "i" and "l".
 % TODO: Explain why commonly "i" -> "l", but not so commonly vice versa; due to frequencies..?
 This is understandable, considering the visual similarity of "i" and "l" as seen in Figure
 \ref{fig:charpairs}; the leftmost instance of "i" looks in fact exactly like an instance of "l".
