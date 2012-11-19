@@ -24,7 +24,7 @@
 This paper describes a solution to an optical character recognition problem for bitmap characters
 using Support Vector Machines with an RBF kernel, including a description of RBF parameter search
 and bitmap normalization.  Classification performance of 90.8\% was achieved against a given
-training set of 42152 correctly labeled samples using k-fold cross validation with k=20
+training set of 42152 correctly labeled samples using k-fold cross-validation with k=20
 \cite{training_set}.
 
 \vspace{3mm}
@@ -313,7 +313,7 @@ construct yielded significant improvements.
 
 We were happy with the performance of our solution.  We achieved a classification performance of
 90.8\% against the given training set of 42152 correctly labeled samples, as measured by k-fold
-cross validation with k=20.  On a 2.1GHz Xeon development machine, a full run of the training and
+cross-validation with k=20.  On a 2.1GHz Xeon development machine, a full run of the training and
 validation phases (as the cross-validation requires several trainings and validations) for a given
 combination of $\gamma$ and $C$ took approximately 6 hours (single-threaded).
 
@@ -428,8 +428,8 @@ solution used a custom distance function instead of standard Euclidean distance,
 the more interesting.
 
 %\begin{itemize}
-%\item k-fold cross validation: k=20, error rate 11\%
-%\item k-fold cross validation: k=5, error rate 11.5\%
+%\item k-fold cross-validation: k=20, error rate 11\%
+%\item k-fold cross-validation: k=5, error rate 11.5\%
 %\item One iteration with training set n=40000 and validation set n=2152 about 17 min with 2.1GHz Xeon (single thread)
 %\item about 300MB of memory for training set n=42152
 %\item Predicting one character: about 2 milliseconds
