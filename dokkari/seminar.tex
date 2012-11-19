@@ -24,7 +24,7 @@
 This paper describes a solution to an optical character recognition problem for bitmap characters
 using Support Vector Machines with an RBF kernel, including a description of RBF parameter search
 and bitmap normalization.  Classification performance of 90.8\% was achieved against a given
-training set of 42152 correctly labelled samples using k-fold crossvalidation with k=20
+training set of 42152 correctly labeled samples using k-fold cross validation with k=20
 \cite{training_set}.
 
 \vspace{3mm}
@@ -92,19 +92,19 @@ beginners.
 One initial contender was Principal Component Analysis (PCA).  PCA works by reducing a
 high-dimensional data set into a (hopefully) smaller set of dimensions, so that the resulting
 dimensions capture most of the variance of the original space.  PCA by itself is not a complete
-solution to our problem, as the data points would still have to be labelled in the dimensionally
+solution to our problem, as the data points would still have to be labeled in the dimensionally
 reduced input space. \cite{ding2004k}
 
 For this task, with or without the help of PCA, one could use basic clustering algorithms such as
 k-means clustering.  k-means clustering works by identifying exactly k clusters from the input data,
-without supervision.  We had pre-labelled training data at our disposal, however, so we could make
+without supervision.  We had pre-labeled training data at our disposal, however, so we could make
 use of supervised learning methods instead. \cite{ding2004k}
 
 \label{ref:knn}
 
 Perhaps the simplest of all supervised machine learning methods is the k-nearest neighbor (kNN)
 algorithm.  It works by assigning classes to samples by way of majority vote: for an incoming,
-unlabelled sample, the k nearest neighbors are looked up (using either simple euclidian distance, or
+unlabeled sample, the k nearest neighbors are looked up (using either simple Euclidean distance, or
 a custom distance function).  The assigned class is decided simply by observing the class
 memberships of the neighbors and choosing the most common one.  kNN is not guaranteed to work well
 with high-dimensional input data, however, and would likely require at least dimensionality
@@ -202,7 +202,7 @@ specific data set. \cite{svm_chemistry}
 \section{Kernel selection}
 
 The Radial Basis Function (RBF) kernel is a common first-choice kernel suggested by literature
-\cite{libsvm_guide,svm_chemistry}. It has several desireable properties.  Firstly, it is numerically
+\cite{libsvm_guide,svm_chemistry}. It has several desirable properties.  Firstly, it is numerically
 robust in comparison to some other kernels.  Secondly, another common alternative - the linear
 kernel - is simply a special case of the RBF one.  Thirdly, and perhaps most importantly, the SVM
 kernel is configured with only two parameters (as opposed to the 4 parameters of the polynomial
@@ -214,7 +214,7 @@ We did briefly try out other kernel functions (as many are readily provided with
 implementation of choice, mlpy \cite{albanese12mlpy}), but we ended up agreeing with our first
 choice of RBF, as it seemed the best performer against our data set.  Also, since a much bigger part
 of the effort in configuring an SVM has to do with choosing proper parameters for the kernel
-function, RBF had desireable properties in that regard as well.  These are discussed further in
+function, RBF had desirable properties in that regard as well.  These are discussed further in
 Section \ref{ref:kernelparamsearch}.
 
 \section{Character preprocessing}
@@ -269,11 +269,11 @@ correct labels for data points).  This approach is not optimal, however: the cla
 from \emph{overfitting}, meaning it ends up modeling more the training set, instead of the actual
 classification problem being solved.  This is due to the classifier being trained only against a
 specific part of the training data, and validated against another.  How those sets are chosen (that
-is, picked from the entire set of labelled data available) can greatly affect the resulting
+is, picked from the entire set of labeled data available) can greatly affect the resulting
 classifier.  Should the validation data set be chosen with a bit of bad luck, for example, it may
 end up containing a very specific subset of the entire data, skewing the resulting error rates.
 
-K-fold cross-validation avoids these issues by dividing the labelled data into k-segments of equal
+K-fold cross-validation avoids these issues by dividing the labeled data into k-segments of equal
 size, and then using each as the validation set in turn.  The rest of the segments are then used to
 train the classifier being validated.  Once each segment has been validated against, the error rate
 is calculated over the entire set of validations.  This both makes use of the entire data set for
@@ -297,10 +297,10 @@ classifier into a \emph{classifier tree}, with second-level classifiers chained 
 
 Even though this approach originally yielded classification performance improvements of a few
 percent, after carefully selecting the primary classifier parameters $\gamma$ and $C$, the original
-primary classifier performed better than the classifier tree.  In the end, this was both desireable
-and intuitive.  It was desireable because it makes our solution simpler, and simple solutions are
+primary classifier performed better than the classifier tree.  In the end, this was both desirable
+and intuitive.  It was desirable because it makes our solution simpler, and simple solutions are
 easier to sanity-check.  It was intuitive (especially in retrospect) because our solution was in
-fact analoguous to how multi-class SVM's are often constructed internally anyway (as discussed in
+fact analogous to how multi-class SVM's are often constructed internally anyway (as discussed in
 Section \ref{ref:multiclasssvm}), so it would have been unexpected had our duplication of this
 construct yielded significant improvements.
 
@@ -312,8 +312,8 @@ construct yielded significant improvements.
 \section{Results and performance}
 
 We were happy with the performance of our solution.  We achieved a classification performance of
-90.8\% against the given training set of 42152 correctly labelled samples, as measured by k-fold
-crossvalidation with k=20.  On a 2.1GHz Xeon development machine, a full run of the training and
+90.8\% against the given training set of 42152 correctly labeled samples, as measured by k-fold
+cross validation with k=20.  On a 2.1GHz Xeon development machine, a full run of the training and
 validation phases (as the cross-validation requires several trainings and validations) for a given
 combination of $\gamma$ and $C$ took approximately 6 hours (single-threaded).
 
@@ -369,7 +369,7 @@ source data.}
 \centering
 \includegraphics[width=120mm]{chardist.png}
 \caption{Character distribution in the data set.  Our predictions (that is, labels assigned by our
-algorithm) have been contrasted with the correctly labelled data.}
+algorithm) have been contrasted with the correctly labeled data.}
 \label{fig:chardistribution}
 \end{figure}
 
@@ -412,7 +412,7 @@ potential improvements using this knowledge) remain an intriguing topic for furt
 \centering
 \includegraphics[width=100mm]{pairs.png}
 \caption{The most commonly misclassified character pairs, by example.  Specimens have been randomly
-selected from the correctly labelled data set.}
+selected from the correctly labeled data set.}
 \label{fig:charpairs}
 \end{figure}
 
@@ -424,7 +424,7 @@ error rate of 12.08\%, compared to our 10.48\%) was, interestingly, an implement
 was discussed as one of our early candidates in Section \ref{ref:knn}.  What made the solution
 interesting was its simplicity - kNN is one of the simplest methods of machine learning, yet still
 quite effective with suitable kinds of problems \cite{keller1985fuzzy}.  As far as we know, the
-solution used a custom distance function instead of standard euclidean distance, which makes it all
+solution used a custom distance function instead of standard Euclidean distance, which makes it all
 the more interesting.
 
 %\begin{itemize}
