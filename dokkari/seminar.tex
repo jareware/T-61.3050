@@ -247,12 +247,17 @@ Optimal parameters for the SVM (and the kernel function) present a local optimiz
 and $C$ (the SVM penalty parameter).  Since an exhaustive search in this space isn't possible, a
 basic grid search was employed.
 
-% TODO: Check that the below numbers are correct & fill in X & Y
-In the first step of the search, the space was divided into a grid of 6-by-6 (totaling 36 cells),
-covering the range [-10,0] for $\gamma$, and [-1,9] for $C$.  At the origin point in each cell, the
-classification performance was then measured.  Out of the explored cells, the best one was chosen
-for the next step.  In the second step, the candidate cell was further explored with a finer grid.
-This grid was X-by-Y around the origin point, covering the area within a few percent of the origin.
+In the first step of the search, the space was divided into a grid of 6-by-6 (totaling 36 cells), at
+each of which the classifiers were trained and the performance of the algorithm was measured.  Our
+literature review (\cite{libsvm_guide} especially) suggested going for exponentially increasing
+values of the parameters $\gamma$ and $C$ when doing the coarse mapping of the search space, which
+seemed like a reasonable starting point.  The coarse search step covered $\gamma$ for $2^i$ with $i
+= -10, -8, -6, -4, -2, 0$ and $C$ for $2^i$ with $i = -1, 1, 3, 5, 7, 9$.  Out of the explored
+cells, the one at which the algorithm performed best was chosen for the next step.
+
+In the second step, the chosen cell was further explored by fine-tuning the parameters around the
+cell origin.  The search works by varying both parameters by a small percentage until the
+performance converges at a local maximum.
 
 \label{ref:crossvalidation}
 
