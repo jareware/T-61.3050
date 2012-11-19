@@ -66,7 +66,7 @@
 \else
   \fancyhead[RO]{\fancyplain{}
                  %%{Draft {\number\day}.{\number\month}.{\number\year}}}
-                 {Draft \isodate}}    
+                 {\isodate}}    
   \fancyfoot[CO]{\thepage}
 \fi
 \date{}
