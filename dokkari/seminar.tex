@@ -402,6 +402,12 @@ a visual comparison is a good reminder as to how challenging the classification 
 actually is, and helps appreciate the performance of the algorithm where even the human observer may
 occasionally fail.
 
+It is interesting to note that the pairwise misclassifications are not symmetric, meaning that, for
+example, "i" is more commonly misclassified as an "l" than vice versa.  Unfortunately, one natural
+explanation of significantly differing frequencies does not check out, as the characters are
+approximately as frequent (see Figure \ref{fig:chardistribution}).  The cause for this (and
+potential improvements using this knowledge) remain an intriguing topic for further research.
+
 \begin{figure}[t]
 \centering
 \includegraphics[width=100mm]{pairs.png}
