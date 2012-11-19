@@ -147,6 +147,20 @@ potential for generalization error, the clusters should be separated by as wide 
 (or in simpler terms, by a line, with as much space between the line and the nearest data points as
 possible). \cite{svm_chemistry}
 
+% TODO: Does this math section actually sound like we know what we're talking about? :P
+
+In mathematical terms, an SVM solves an optimization problem for pairs
+$(x_i, y_i), i = 1, ..., l$ where $x_i$ is the i:th input data vector, and $y_i$ is the correct
+label associated with that input:
+
+% TODO: Put this into a "math" env or something..?
+min($w,b,\xi$): $\frac{1}{2}w^Tw + C \sum_{i=1}^l\xi_i$,
+subject to $y_i(w^T \phi(x_i) + b) \ge 1 - \xi_i, \xi_i \ge 0$,
+where $C$ is the penalty parameter (see Section \ref{ref:kernelparamsearch} for how it is chosen),
+$w$ is a support vector in the problem space, $b$ is a scalar associated with the support vector,
+$\xi$ is the error term, and $\phi$ is a mapping function for the input space (the role of which is
+described below). \cite{libsvm_guide,cortes1995support}
+
 \label{ref:multiclasssvm}
 
 SVM's generalize nicely into higher dimensional spaces.  In an n-dimensional input space, the two
